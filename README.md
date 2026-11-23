@@ -104,3 +104,88 @@ npm.cmd run lint
 Credentials, local database files, dependencies, and build output are excluded by `.gitignore`.
 
 For Docker Compose, override `DB_HOST` to the PostgreSQL service name (for example, `db`) and `DB_PORT` to `5432`. A separate backend container cannot reach the database container using `localhost`. Publish database port `5433:5432` to access it from your host at `localhost:5433`.
+
+
+
+
+# Docker Setup
+
+## Prerequisites
+
+- Docker Desktop
+- Docker Compose V2
+
+## Environment Setup
+
+Copy the example environment file:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Update DB_PASSWORD in .env.
+
+## Build and Start
+
+From the repository root:
+
+```bash
+docker compose up --build
+```
+
+The application will be available at:
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:8080/api/todos
+- Backend health: http://localhost:8080/actuator/health
+- PostgreSQL: localhost:5433
+
+## Run in Background
+
+```bash
+docker compose up --build -d
+```
+
+## View Running Containers
+
+```bash
+docker compose ps
+```
+
+## View Logs
+
+```bash
+docker compose logs -f
+```
+
+Individual services:
+
+```bash
+docker compose logs -f backend
+docker compose logs -f frontend
+docker compose logs -f db
+```
+
+## Stop Application
+
+```bash
+docker compose down
+```
+
+This stops and removes the containers and network,
+but preserves the PostgreSQL named volume.
+
+## Rebuild Application
+
+```bash
+docker compose up --build -d
+```
+
+## Remove Containers and Database Volume
+
+```bash
+docker compose down -v
+```
+
+WARNING: This permanently removes the Compose-managed
+PostgreSQL data volume.
