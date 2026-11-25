@@ -268,7 +268,7 @@ export default function App() {
             <div>
               <div className="eyebrow">A CLEARER DAY STARTS HERE</div>
               <h1>
-                A little focus.
+                A lil focus.
                 <br />
                 <span>A lot of possibility.</span>
               </h1>
